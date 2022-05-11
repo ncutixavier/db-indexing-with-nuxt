@@ -82,7 +82,7 @@ export default {
         this.search = "";
       }).catch((err) => {
         this.showErrorMessage = true;
-        this.error = err.data?.error;
+        this.error = err?.data?.error;
         console.log("QUERY-ERR::", err);
       })
     },
