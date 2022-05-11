@@ -12,11 +12,14 @@
             single-line
             hide-details
           ></v-text-field>
-          <v-btn class="ma-2" color="primary" dark :disabled="!search"
-          @click="fetchData"
+          <v-btn
+            class="ma-2"
+            color="primary"
+            dark
+            :disabled="!search"
+            @click="fetchData"
           >
-            <v-icon dark left> mdi-magnify </v-icon>
-            Search
+            Run
           </v-btn>
         </v-card-title>
         <v-data-table
@@ -26,6 +29,19 @@
           :loading="loadingStatus"
         ></v-data-table>
       </v-card>
+      <v-snackbar
+        :timeout="2000"
+        :value="showErrorMessage"
+        absolute
+        top
+        color="error"
+        outlined
+        right
+      >
+        <div class="text-center">
+          {{ error }}
+        </div>
+      </v-snackbar>
     </v-col>
   </v-row>
 </template>
@@ -36,7 +52,8 @@ export default {
   data() {
     return {
       search: "",
-      loading: false,
+      errorMessage: "",
+      showErrorMessage: false,
       headers: [
         {
           text: "Query",
@@ -59,8 +76,16 @@ export default {
       console.log(this.search);
       this.$store.dispatch("doctors/fetchDoctors", this.search).then((res) => {
         console.log("QUERY-RESP::", res);
-        this.indexes.push(...res?.data);
-      });
+        this.indexes.push({
+          query: res?.query,
+          time: parseFloat(res?.time).toFixed(2),
+        });
+        this.search = "";
+      }).catch((err) => {
+        this.showErrorMessage = true;
+        this.error = err.response?.data?.message;
+        console.log("QUERY-ERR::", err);
+      })
     },
   },
   mounted() {
