@@ -29,7 +29,7 @@
         ></v-data-table>
       </v-card>
       <v-snackbar
-        :timeout="2000"
+        :timeout="5000"
         :value="showErrorMessage"
         top
         color="error"
@@ -71,17 +71,20 @@ export default {
   methods: {
     fetchData() {
       console.log(this.search);
-      this.$store.dispatch("doctors/fetchDoctors", this.search).then((res) => {
-        console.log("QUERY-RESP::", res);
-        this.indexes.push({
-          query: res?.query,
-          time: parseFloat(res?.time).toFixed(2),
+      this.$store
+        .dispatch("doctors/fetchDoctors", this.search)
+        .then((res) => {
+          console.log("QUERY-RESP::", res);
+          this.indexes.push({
+            query: res?.query,
+            time: parseFloat(res?.time).toFixed(2),
+          });
+        })
+        .catch((err) => {
+          this.errorMessage = err?.data?.error;
+          this.showErrorMessage = !this.showErrorMessage;
+          console.log("QUERY-ERR::", err);
         });
-      }).catch((err) => {
-        this.showErrorMessage = true;
-        this.errorMessage = err?.data?.error;
-        console.log("QUERY-ERR::", err);
-      })
     },
   },
   mounted() {
