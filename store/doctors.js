@@ -18,7 +18,6 @@ export const mutations = {
 
 export const actions = {
   async fetchDoctors({ commit }, query) {
-    console.log("fetchDoctors", query);
     return new Promise((resolve, reject) => {
       commit("SET_LOADING_DOCTORS", true);
       this.$axios

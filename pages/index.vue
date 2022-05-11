@@ -64,11 +64,9 @@ export default {
   },
   methods: {
     fetchData() {
-      console.log(this.search);
       this.$store
         .dispatch("doctors/fetchDoctors", this.search)
         .then((res) => {
-          console.log("QUERY-RESP::", res);
           this.indexes.push({
             query: res?.query,
             time: parseFloat(res?.time).toFixed(2),
@@ -77,13 +75,11 @@ export default {
         .catch((err) => {
           this.errorMessage = err.data.error;
           this.showErrorMessage = true;
-          console.log("QUERY-ERR::", err);
         });
     },
   },
   mounted() {
     const doctors = this.$store.state.doctors;
-    console.log("Doctors: ", doctors);
   },
 };
 </script>
