@@ -28,13 +28,7 @@
           :loading="loadingStatus"
         ></v-data-table>
       </v-card>
-      <v-snackbar
-        v-if="showErrorMessage"
-        value="true"
-        top
-        color="error"
-        outlined
-      >
+      <v-snackbar v-model="showErrorMessage" top color="error" outlined>
         <div class="text-center">
           {{ errorMessage }}
         </div>
@@ -81,7 +75,7 @@ export default {
           });
         })
         .catch((err) => {
-          this.errorMessage = err?.data?.error;
+          this.errorMessage = err.data.error;
           this.showErrorMessage = true;
           console.log("QUERY-ERR::", err);
         });
