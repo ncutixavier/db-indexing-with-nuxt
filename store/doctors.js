@@ -17,8 +17,8 @@ export const mutations = {
 };
 
 export const actions = {
-    async fetchDoctors({ commit }, query) {
-        console.log('fetchDoctors', query);
+  async fetchDoctors({ commit }, query) {
+    console.log("fetchDoctors", query);
     return new Promise((resolve, reject) => {
       commit("SET_LOADING_DOCTORS", true);
       this.$axios
@@ -31,7 +31,7 @@ export const actions = {
         .catch((error) => {
           commit("SET_LOADING_DOCTORS", false);
           commit("SET_ERROR_DOCTORS", error);
-          reject(error);
+          reject(error.response);
         });
     });
   },
