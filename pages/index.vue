@@ -29,7 +29,6 @@
         ></v-data-table>
       </v-card>
       <v-snackbar
-        :timeout="5000"
         :value="showErrorMessage"
         top
         color="error"
