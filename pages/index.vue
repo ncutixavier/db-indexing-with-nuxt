@@ -25,7 +25,6 @@
         <v-data-table
           :headers="headers"
           :items="indexes"
-          :search="search"
           :loading="loadingStatus"
         ></v-data-table>
       </v-card>
@@ -35,10 +34,9 @@
         top
         color="error"
         outlined
-        right
       >
         <div class="text-center">
-          {{ error }}
+          {{ errorMessage }}
         </div>
       </v-snackbar>
     </v-col>
@@ -79,10 +77,9 @@ export default {
           query: res?.query,
           time: parseFloat(res?.time).toFixed(2),
         });
-        this.search = "";
       }).catch((err) => {
         this.showErrorMessage = true;
-        this.error = err?.data?.error;
+        this.errorMessage = err?.data?.error;
         console.log("QUERY-ERR::", err);
       })
     },
