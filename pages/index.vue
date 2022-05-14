@@ -3,7 +3,7 @@
     <v-col cols="12" sm="8" md="12">
       <v-card>
         <v-card-title>
-          <v-row justify="space-between">
+          <v-row justify="space-between" class="search-container">
             <v-col cols="12" md="3">
               <v-autocomplete
                 v-model="hospital"
@@ -103,12 +103,16 @@ export default {
       hospitals: hospitals,
       headers: [
         {
-          text: "Query",
+          text: "Name",
           align: "start",
           sortable: false,
-          value: "query",
+          value: "name",
         },
-        { text: "Time", value: "time" },
+        { text: "Email", value: "email" },
+        { text: "Hospital", value: "hospital" },
+        { text: "Practice Year", value: "year" },
+        { text: "Zip Code", value: "zip" },
+        { text: "City", value: "city" },
       ],
       indexes: [],
     };
@@ -127,7 +131,9 @@ export default {
   },
   methods: {
     fetchData() {
-      console.log(`Hospital: ${this.hospital}\nYear: ${this.year}\nSpecialization: ${this.specialization}\nZip: ${this.zip}`);
+      console.log(
+        `Hospital: ${this.hospital}\nYear: ${this.year}\nSpecialization: ${this.specialization}\nZip: ${this.zip}`
+      );
       // this.$store
       //   .dispatch("doctors/fetchDoctors", this.search)
       //   .then((res) => {
@@ -147,3 +153,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.search-container {
+  padding-bottom: 8px;
+  .col-12 {
+    height: 60px;
+  }
+}
+</style>
